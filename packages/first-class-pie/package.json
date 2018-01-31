@@ -3,7 +3,7 @@
   "publishConfig": {
     "registry": "http://localhost:4873"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "dependencies": {
     "@pie-test-elements/element": "0.0.1",
     "@pie-test-elements/element-configure": "0.0.1",
