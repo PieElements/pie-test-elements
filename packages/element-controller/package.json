@@ -1,0 +1,8 @@
+{
+  "name": "@pie-test-elements/element-controller",
+  "publishConfig": {
+    "registry": "http://localhost:4873"
+  },
+  "version": "1.0.0",
+  "main": "src/index.js"
+}
