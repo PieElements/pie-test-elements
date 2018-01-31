@@ -7,11 +7,11 @@
   "dependencies": {
     "@pie-test-elements/element": "0.0.1",
     "@pie-test-elements/element-configure": "0.0.1",
-    "@pie-test-elments/element-controller": "0.0.1"
+    "@pie-test-elements/element-controller": "0.0.1"
   },
   "pie": {
     "element": "@pie-test-elements/element",
-    "configure": "@pie-test-elements/configure",
-    "controller": "@pie-test-elements/controller"
+    "configure": "@pie-test-elements/element-configure",
+    "controller": "@pie-test-elements/element-controller"
   }
 }
