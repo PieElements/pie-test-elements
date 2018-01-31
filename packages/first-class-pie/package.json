@@ -5,13 +5,13 @@
   },
   "version": "0.1.0",
   "dependencies": {
-    "@pie-test-libs/element": "0.0.1",
-    "@pie-test-libs/element-configure": "0.0.1",
-    "@pie-test-libs/element-controller": "0.0.1"
+    "@pie-test-elements/element": "0.0.1",
+    "@pie-test-elements/element-configure": "0.0.1",
+    "@pie-test-elments/element-controller": "0.0.1"
   },
   "pie": {
-    "element": "@pie-test-libs/element",
-    "configure": "@pie-test-libs/configure",
-    "controller": "@pie-test-libs/controller"
+    "element": "@pie-test-elements/element",
+    "configure": "@pie-test-elements/configure",
+    "controller": "@pie-test-elements/controller"
   }
 }
