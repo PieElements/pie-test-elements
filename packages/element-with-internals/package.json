@@ -1,0 +1,8 @@
+{
+  "name": "@pie-test-elements/element-with-internals",
+  "version": "0.0.1",
+  "publishConfig": {
+    "registry": "http://localhost:4873"
+  },
+  "main": "src/index.js"
+}
