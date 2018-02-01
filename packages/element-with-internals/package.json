@@ -1,6 +1,6 @@
 {
   "name": "@pie-test-elements/element-with-internals",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "publishConfig": {
     "registry": "http://localhost:4873"
   },
