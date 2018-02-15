@@ -1,6 +1,6 @@
-export default Element extends HTMLElement {
+export default class Element extends HTMLElement {
 
-  constructor(){
+  constructor() {
     super();
     this.innerHTML = 'TA-DA!';
   }

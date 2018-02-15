@@ -1,0 +1,12 @@
+{
+  "name": "hybrid-element",
+  "version": "1.0.0",
+  "dependencies": {
+    "element": "../element",
+    "element-controller": "../element-controller"
+  },
+  "pie": {
+    "element": "element",
+    "controller": "element-controller"
+  }
+}
