@@ -1,5 +1,5 @@
 {
-  "name": "hybrid-element-configure",
+  "name": "@pie-test-elements/hybrid-element-configure",
   "version": "1.0.0",
   "main": "src/index.js"
 }
