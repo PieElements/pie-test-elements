@@ -4,10 +4,11 @@ const minimist = require("minimist");
 
 const fs = require("fs-extra");
 const { execSync, spawn } = require("child_process");
-const { resolve, join } = require("path");
+const path = require("path");
 const debug = require("debug");
 const rimraf = require("rimraf");
 var argv = minimist(process.argv.slice(2));
+const { processFix } = require("@pie-framework/build-helper");
 
 debug.enable("pie-test-elements:info");
 
@@ -25,48 +26,97 @@ const clean = argv.clean || false;
 i("running the registry... on port: 4873");
 
 execSync(`npm config set registry http://localhost:${port}`);
-d("npm registry is now: ", execSync(`npm config get registry`).toString());
+i("npm registry is now: ", execSync(`npm config get registry`).toString());
 
 if (clean) {
-  const storagePath = join(__dirname, "..", ".verdaccio-storage");
+  const storagePath = path.join(__dirname, "..", ".verdaccio-storage");
 
   i("cleaning ", storagePath);
   rimraf.sync(storagePath);
 }
 
-const executable = resolve(
-  __dirname,
-  "..",
-  "node_modules",
-  ".bin",
-  "verdaccio"
-);
-let v = spawn(
-  executable,
-  ["--config", "./verdaccio.yml", "--listen", port.toString()],
-  { cwd: resolve(__dirname, ".."), stdio: "inherit" }
-);
+let v = null;
 
-setTimeout(() => {
-  const elsDir = resolve(__dirname, "..", "packages");
-  if (!fs.existsSync(elsDir)) {
-    return Promise.reject(new Error("You must install pie test elements"));
+processFix(i, () => {
+  i("KILL !!!");
+
+  if (v) {
+    v.kill();
   }
-  const list = fs.readdirSync(elsDir);
+});
 
-  d(execSync("npm config list").toString());
-
-  list.forEach(n => {
-    const pkg = require(`${elsDir}/${n}/package.json`);
-
+const bootVerdaccio = () =>
+  new Promise((res, rej) => {
     try {
-      const result = execSync(`npm view ${pkg.name} --json`);
-      d("result:", result.toString());
+      const executable = path.resolve(
+        __dirname,
+        "..",
+        "node_modules",
+        ".bin",
+        "verdaccio"
+      );
+      v = spawn(
+        executable,
+        ["--config", "./verdaccio.yml", "--listen", port.toString()],
+        { cwd: path.resolve(__dirname, "..") }
+      );
+
+      v.stdout.on("data", d => {
+        //console.log("!!!! ... stdout: [", d.toString(), "]");
+        //warn --- http address - http://localhost:4873/ - verdaccio/3.8.2
+
+        if (d.toString().indexOf("http address -") !== -1) {
+          // Wait a bit to see if a `fatal` comes in.
+          setTimeout(() => {
+            res();
+          }, 400);
+        }
+
+        if (d.toString().indexOf("fatal") !== -1) {
+          v.kill();
+          rej("Error running verdaccio");
+        }
+      });
+
+      v.stderr.on("data", d => {
+        console.error(" ... stderr", d.toString());
+      });
+
+      v.on("error", e => {
+        i("error: ", e);
+        rej(e);
+      });
     } catch (e) {
-      d("not there - publish");
-      execSync("npm publish", { cwd: `${elsDir}/${n}` });
+      rej(e);
     }
   });
-  i("installed:", list);
-  i("running verdacio server now...");
-}, 200);
+
+bootVerdaccio()
+  .then(() => {
+    i("install..");
+    const elsDir = path.resolve(__dirname, "..", "packages");
+    if (!fs.existsSync(elsDir)) {
+      return Promise.reject(new Error("You must install pie test elements"));
+    }
+    const list = fs.readdirSync(elsDir);
+
+    d(execSync("npm config list").toString());
+
+    list.forEach(n => {
+      const pkg = require(`${elsDir}/${n}/package.json`);
+
+      try {
+        const result = execSync(`npm view ${pkg.name} --json`);
+        d("result:", result.toString());
+      } catch (e) {
+        d("not there - publish");
+        execSync("npm publish", { cwd: `${elsDir}/${n}` });
+      }
+    });
+    i("installed:", list);
+    i("running verdacio server now...");
+  })
+  .catch(e => {
+    console.error(e);
+    process.exit(1);
+  });

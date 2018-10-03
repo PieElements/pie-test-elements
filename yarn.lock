@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@pie-framework/build-helper@^1.0.3":
+  version "1.0.3"
+  resolved "http://localhost:4873/@pie-framework%2fbuild-helper/-/build-helper-1.0.3.tgz#c51b1b3ebf03f4ca2aedcc0996ce18422fa4fb4d"
+  integrity sha512-Zr3we3mpSt9ki42JVegIKhPcmM5CCVixkRBLDsYyHdECFzH2rWsxp4sjCR7/a/K5AXr1ICjNjLEA2QvBg/wXLw==
+
 "@verdaccio/file-locking@0.0.7", "@verdaccio/file-locking@^0.0.7":
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/@verdaccio/file-locking/-/file-locking-0.0.7.tgz#5fd1b2bd391e54fa32d079002b5f7ba90844e344"

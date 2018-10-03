@@ -3,6 +3,7 @@
     "lerna": "^2.8.0",
     "verdaccio": "^3.8.2",
     "minimist": "^1.2.0",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "@pie-framework/build-helper": "^1.0.3"
   }
 }
