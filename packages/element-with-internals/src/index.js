@@ -1,8 +1,10 @@
-export default class extends HTMLElement {
+import React from "react";
+import ReactDOM from "react-dom";
 
+export default class extends HTMLElement {
   constructor() {
     super();
-    this.innerHTML = 'TA-DA!';
+    this.innerHTML = "TA-DA!";
   }
 
   set model(m) {
@@ -11,5 +13,10 @@ export default class extends HTMLElement {
 
   set session(s) {
     this._session = s;
+  }
+
+  connectedCallback() {
+    const el = React.createElement("div", { children: "i am a react element" });
+    ReactDOM.render(el, this);
   }
 }

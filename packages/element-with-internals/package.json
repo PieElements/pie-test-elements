@@ -4,5 +4,9 @@
   "publishConfig": {
     "registry": "http://localhost:4873"
   },
+  "dependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  },
   "main": "src/index.js"
 }
