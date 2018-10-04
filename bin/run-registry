@@ -37,13 +37,6 @@ if (clean) {
 
 let v = null;
 
-process.on("SIGKILL", () => {
-  if (v) {
-    console.log("!! ----------------------> KILL process: ", v.pid);
-    v.kill();
-  }
-});
-
 processFix(i, () => {
   if (v) {
     console.log("!! ----------------------> KILL process: ", v.pid);
