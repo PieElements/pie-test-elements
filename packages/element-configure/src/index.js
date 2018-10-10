@@ -1,8 +1,7 @@
-export default Element extends HTMLElement {
-
-  constructor(){
+export default class Element extends HTMLElement {
+  constructor() {
     super();
-    this.innerHTML = 'TA-DO-DO!';
+    this.innerHTML = "TA-DO-DO!";
   }
 
   set model(m) {
